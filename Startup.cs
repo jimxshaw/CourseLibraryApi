@@ -28,7 +28,7 @@ namespace CourseLibrary.API
 
       services.AddDbContext<CourseLibraryContext>(options =>
       {
-        options.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=");
+        options.UseNpgsql("Host=localhost;Database=jimxshaw;Username=postgres;");
       });
     }
 
