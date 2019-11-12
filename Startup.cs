@@ -40,10 +40,14 @@ namespace CourseLibrary.API
         app.UseDeveloperExceptionPage();
       }
 
+      // Marks the position in the middleware pipeline where 
+      // a routing decision is made.
       app.UseRouting();
 
       app.UseAuthorization();
 
+      // Marks the position in the middleware pipeline where
+      // the selected endpoint is executed.
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
