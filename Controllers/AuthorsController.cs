@@ -29,12 +29,12 @@ namespace CourseLibrary.API.Controllers
     [HttpGet("{authorId}")]
     public IActionResult GetAuthor(Guid authorId)
     {
-      if (!_repo.AuthorExists(authorId))
+      var authorFromRepo = _repo.GetAuthor(authorId);
+
+      if (authorFromRepo == null)
       {
         return NotFound();
       }
-
-      var authorFromRepo = _repo.GetAuthor(authorId);
 
       return Ok(authorFromRepo);
     }
