@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CourseLibrary.API.Helpers;
 using CourseLibrary.API.Models;
 using CourseLibrary.API.Services;
@@ -14,30 +15,21 @@ namespace CourseLibrary.API.Controllers
   public class AuthorsController : ControllerBase
   {
     private readonly ICourseLibraryRepository _repo;
+    private readonly IMapper _mapper;
 
-    public AuthorsController(ICourseLibraryRepository courseLibraryRepository)
+    public AuthorsController(ICourseLibraryRepository courseLibraryRepository,
+                              IMapper mapper)
     {
       _repo = courseLibraryRepository ?? throw new ArgumentNullException(nameof(courseLibraryRepository));
+      _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     [HttpGet()]
     public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
     {
       var authorsFromRepo = _repo.GetAuthors();
-      var authors = new List<AuthorDto>();
 
-      foreach (var author in authorsFromRepo)
-      {
-        authors.Add(new AuthorDto()
-        {
-          Id = author.Id,
-          Name = $"{author.FirstName} {author.LastName}",
-          MainCategory = author.MainCategory,
-          Age = author.DateOfBirth.GetCurrentAge()
-        });
-      }
-
-      return Ok(authors);
+      return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
     }
 
     [HttpGet("{authorId}")]
@@ -50,15 +42,7 @@ namespace CourseLibrary.API.Controllers
         return NotFound();
       }
 
-      var author = new AuthorDto()
-      {
-        Id = authorFromRepo.Id,
-        Name = $"{authorFromRepo.FirstName} {authorFromRepo.LastName}",
-        MainCategory = authorFromRepo.MainCategory,
-        Age = authorFromRepo.DateOfBirth.GetCurrentAge()
-      };
-
-      return Ok(author);
+      return Ok(_mapper.Map<AuthorDto>(authorFromRepo));
     }
   }
 }
