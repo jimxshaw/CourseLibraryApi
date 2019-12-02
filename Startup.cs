@@ -32,6 +32,7 @@ namespace CourseLibrary.API
 
       // Input a set of assemblies. These assemblies will automatically get
       // scanned for profiles that contain mapping configurations.
+      // See Profiles folder and classes inside it.
       services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
       services.AddScoped<ICourseLibraryRepository, CourseLibraryRepository>();
