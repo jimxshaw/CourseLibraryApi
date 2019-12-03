@@ -25,6 +25,7 @@ namespace CourseLibrary.API.Controllers
     }
 
     [HttpGet()]
+    [HttpHead()] // HEAD is the same as GET but will not return a response body.
     public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
     {
       var authorsFromRepo = _repo.GetAuthors();
