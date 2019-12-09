@@ -18,7 +18,7 @@ namespace CourseLibrary.API.Services
 
     IEnumerable<Author> GetAuthors();
 
-    IEnumerable<Author> GetAuthors(string mainCategory);
+    IEnumerable<Author> GetAuthors(string mainCategory, string searchQuery);
 
     Author GetAuthor(Guid authorId);
 
